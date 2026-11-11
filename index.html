@@ -8,18 +8,18 @@
 
     <!-- Vista previa al compartir el enlace (WhatsApp, Facebook, etc.) -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://invitavale.com/Boda-chanpam-2B/">
+    <meta property="og:url" content="https://invitavale.com/Boda-Alejandrina-Juan/">
     <meta property="og:title" content="Alejandrina & Juan Bienvenido · ¡Nos casamos!">
     <meta property="og:description" content="23 de enero de 2027 · Constanza · Te invitamos a celebrar nuestra boda 💍">
-    <meta property="og:image" content="https://invitavale.com/Boda-chanpam-2B/og-portada.jpg?v=4">
-    <meta property="og:image:secure_url" content="https://invitavale.com/Boda-chanpam-2B/og-portada.jpg?v=4">
+    <meta property="og:image" content="https://invitavale.com/Boda-Alejandrina-Juan/og-portada.jpg?v=6">
+    <meta property="og:image:secure_url" content="https://invitavale.com/Boda-Alejandrina-Juan/og-portada.jpg?v=6">
     <meta property="og:image:type" content="image/jpeg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="es_DO">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="https://invitavale.com/Boda-chanpam-2B/og-portada.jpg?v=4">
-    <link rel="preload" as="image" href="foto0.jpg?v=2">
+    <meta name="twitter:image" content="https://invitavale.com/Boda-Alejandrina-Juan/og-portada.jpg?v=6">
+    <link rel="preload" as="image" href="foto0.jpg?v=4">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://www.google.com">
@@ -157,8 +157,30 @@
         /* Ajuste temporal: mantener altura visible sin tocar el attachment */
         @media (min-width: 1025px) {
             .hero-section {
-                background-image: url('foto0.jpg?v=2') !important;
+                background-image: url('foto0-fondo.jpg?v=1') !important;
             }
+        }
+        /* Portada: la pareja siempre centrada y sin acercar de más.
+           En celular la foto llena la pantalla; en pantallas anchas se ve
+           completa al centro sobre un fondo difuminado de la misma foto. */
+        .hero-section { background-image: url('foto0-fondo.jpg?v=1') !important; background-position: center !important; }
+        .hero-bg { object-position: 50% 22% !important; }
+        @media (min-aspect-ratio: 4/5) {
+            .hero-bg { object-fit: contain !important; object-position: center !important; }
+        }
+
+        /* Fotos tipo polaroid (como en la invitación de referencia) */
+        .galeria { padding: 2.4rem 0 0.6rem; display: flex; flex-direction: column; align-items: center; }
+        .polaroid {
+            width: 72%; max-width: 380px; margin: 0 auto 34px; background: #fff;
+            padding: 9px 9px 40px; box-shadow: 0 12px 26px rgba(31, 41, 25, .22);
+            rotate: -4deg;
+        }
+        .polaroid:nth-child(even) { rotate: 4deg; }
+        .polaroid img { display: block; width: 100%; aspect-ratio: 4/3; object-fit: cover; background: #ddd; }
+        @media (min-width: 769px) {
+            .galeria { flex-direction: row; justify-content: center; gap: 3rem; }
+            .polaroid { width: 340px; margin: 0 0 34px; }
         }
 
         /* Icono animado de Celebración: las copas hacen un leve "choque"
@@ -498,11 +520,11 @@
             </button>
         </div>
         <!-- Música de fondo (arranca al tocar el sobre) -->
-        <audio id="bgMusic" src="musica-fondo.mp3?v=2" preload="auto" loop playsinline></audio>
+        <audio id="bgMusic" src="musica-fondo.mp3?v=3" preload="auto" loop playsinline></audio>
 
         <!-- Hero Section -->
         <div class="hero-section">
-            <img class="hero-bg" src="foto0.jpg?v=2" alt="Portada boda Alejandrina y Juan Bienvenido">
+            <img class="hero-bg" src="foto0.jpg?v=4" alt="Portada boda Alejandrina y Juan Bienvenido">
             <div class="hero-overlay"></div>
             <div class="top-garland">
                 <img src="iconos/flores/esq-sup-izq.webp" alt="" class="tg-izq"><img src="iconos/flores/esq-sup-der.webp" alt="" class="tg-der">
@@ -598,6 +620,11 @@
                     <p class="lugar-nota">Recepción, cena y fiesta</p>
                     <button class="btn-wedding" onclick="openLocation('reception')">¿Cómo llegar?</button>
                 </article>
+            </div>
+            <!-- Galería tipo polaroid -->
+            <div class="galeria">
+                <figure class="polaroid"><img src="galeria-1.jpg?v=1" alt="Alejandrina y Juan Bienvenido" loading="lazy"></figure>
+                <figure class="polaroid"><img src="galeria-2.jpg?v=2" alt="Alejandrina y Juan Bienvenido" loading="lazy"></figure>
             </div>
         </section>
 
