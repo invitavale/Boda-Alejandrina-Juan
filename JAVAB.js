@@ -119,11 +119,43 @@ function setupMusic() {
     });
 }
 
-// Efecto elegante al hacer scroll: el contenido de cada sección aparece
-// subiendo suavemente y enfocándose.
+// Efecto al hacer scroll: cada elemento aparece por separado.
+// - Títulos y textos: suben suavemente y se enfocan.
+// - Tarjetas, contador y fechas: aparecen una tras otra (en cascada).
+// - Polaroids: caen girando un poco, como fotos sobre la mesa.
+// - Itinerario: cada fila entra desde la izquierda.
 function setupScrollReveal() {
+    const grupos = [
+        // [contenedor, variante, retraso entre hijos]
+        ['.fecha-escrita', 'reveal-sube', 0.12],
+        ['.countdown-container', 'reveal-zoom', 0.12],
+        ['.lugares-grid', 'reveal-sube', 0.18],
+        ['.galeria', 'reveal-polaroid', 0.2],
+        ['.timeline', 'reveal-izq', 0.08],
+        ['.party-grid', 'reveal-zoom', 0.18]
+    ];
+    const contenedores = grupos.map(g => g[0]);
+    const items = [];
+
+    grupos.forEach(function(g) {
+        document.querySelectorAll('.content ' + g[0]).forEach(function(cont) {
+            let i = 0;
+            Array.prototype.forEach.call(cont.children, function(el) {
+                if (el.classList.contains('t-dot')) return;
+                items.push([el, g[1], (i++ % 3) * g[2]]);
+            });
+        });
+    });
+
+    const sueltos = document.querySelectorAll('.content section > *, .content .countdown-section > *, .content .bienvenida-section > *, .content .footer-verso, .content .footer-content');
+    sueltos.forEach(function(el) {
+        if (el.classList.contains('section-divider') || el.id === 'guestSection') return;
+        if (contenedores.some(c => el.matches(c))) return;
+        const idx = Array.prototype.indexOf.call(el.parentNode.children, el);
+        items.push([el, 'reveal-sube', Math.min(idx, 3) * 0.1]);
+    });
+
     if (!('IntersectionObserver' in window)) return;
-    const items = document.querySelectorAll('.content section > *:not(.section-divider), .content .countdown-section > *, .content .bienvenida-section > *, .content .footer-verso, .content .footer-content');
     const io = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
             if (entry.isIntersecting) {
@@ -131,11 +163,12 @@ function setupScrollReveal() {
                 io.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
-    items.forEach(function(el) {
-        const idx = Array.prototype.indexOf.call(el.parentNode.children, el);
-        el.style.transitionDelay = Math.min(idx, 4) * 0.12 + 's';
-        el.classList.add('reveal');
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+
+    items.forEach(function(it) {
+        const el = it[0];
+        el.classList.add('reveal', it[1]);
+        el.style.transitionDelay = it[2] + 's';
         io.observe(el);
     });
 }
