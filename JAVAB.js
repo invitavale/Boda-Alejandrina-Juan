@@ -460,9 +460,9 @@ function showRsvpOptions() {
     if (abrir) { abrir.setAttribute('aria-expanded', 'true'); abrir.hidden = true; }
 }
 
-// Confirmación por WhatsApp: Alejandrina 829-827-1511 · Juan 829-838-9700
+// Confirmación por WhatsApp: Alejandrina 809-827-1511 · Juan 829-838-9700
 function confirmAttendance(numero) {
-    const tel = numero || '18298271511';
+    const tel = numero || '18098271511';
     const params = new URLSearchParams(window.location.search);
     const invitados = params.get('invitados');
     const familia = params.get('familia');
