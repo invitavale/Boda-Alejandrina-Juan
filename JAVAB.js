@@ -173,6 +173,15 @@ function setupScrollReveal() {
     });
 }
 
+// Aviso "Desliza para ver más" de la portada
+function bajarAlContenido() {
+    const destino = document.querySelector('.content');
+    if (destino) destino.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+window.addEventListener('scroll', function() {
+    document.body.classList.toggle('ya-bajo', window.scrollY > 40);
+}, { passive: true });
+
 // Inicializar cuando el DOM esté listo
 // Calendario del mes de la boda con el día marcado (semana de lunes a domingo).
 // Para otra boda, basta con cambiar WEDDING_DATE.
